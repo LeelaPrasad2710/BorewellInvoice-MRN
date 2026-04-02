@@ -135,7 +135,7 @@ const DEFAULT_ROWS = [
   { description: "Drilling Charges", depth: "1501–1600", qty: "", rate: "" },
   { description: "Drilling Charges", depth: "1601–1700", qty: "", rate: "" },
   { description: "Drilling Charges", depth: "1701–1800", qty: "", rate: "" },
-  { description: 'Casing Pipe PVC 7"', depth: "", qty: "", rate: "" },
+  { description: 'Casing Pipe MS"', depth: "", qty: "", rate: "" },
   { description: 'Casing Pipe PVC 10"', depth: "", qty: "", rate: "" },
   { description: "Coller", depth: "", qty: "", rate: "" },
   { description: "Wielding", depth: "", qty: "", rate: "" },
