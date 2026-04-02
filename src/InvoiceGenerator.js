@@ -394,7 +394,7 @@ const InvoiceGenerator = () => {
     <div style="font-size:23px;font-weight:800;letter-spacing:0.04em;color:#fff;line-height:1.2;">${companyName}</div>
     <div style="font-size:12px;margin-top:5px;color:#bee3f8;font-weight:500;">${companyPhone}</div>
     <div style="font-size:11px;margin-top:3px;color:#90cdf4;">${companyAddress}</div>
-    <div style="display:inline-block;margin-top:9px;border:1.5px solid rgba(255,255,255,0.45);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.12em;padding:3px 18px;border-radius:20px;">E-BILL</div>
+    <div style="display:inline-block;margin-top:9px;border:1.5px solid rgba(255,255,255,0.45);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.12em;padding:3px 18px;border-radius:20px;">INVOICE</div>
   </div>
 
   <!-- CLIENT DETAILS — from state -->
@@ -594,7 +594,7 @@ const InvoiceGenerator = () => {
           <h1 className="inv-company">{companyName}</h1>
           <p className="inv-contact">{companyPhone}</p>
           <p className="inv-address">{companyAddress}</p>
-          <span className="inv-ebill-badge">E-BILL</span>
+          <span className="inv-ebill-badge">INVOICE</span>
         </header>
 
         {/* CLIENT DETAILS */}
