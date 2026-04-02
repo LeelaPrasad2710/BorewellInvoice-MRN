@@ -9,7 +9,20 @@ const todayISO = () => new Date().toISOString().split("T")[0];
 const isoToDisplay = (iso) => {
   if (!iso) return "";
   const [y, m, d] = iso.split("-");
-  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   return `${d} ${months[parseInt(m, 10) - 1]} ${y}`;
 };
 
@@ -17,16 +30,66 @@ const fmt = (n) => Number(n || 0).toFixed(2);
 
 const numberToWords = (num) => {
   if (num === 0) return "Zero";
-  const a = ["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten",
-    "Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"];
-  const b = ["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"];
+  const a = [
+    "",
+    "One",
+    "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine",
+    "Ten",
+    "Eleven",
+    "Twelve",
+    "Thirteen",
+    "Fourteen",
+    "Fifteen",
+    "Sixteen",
+    "Seventeen",
+    "Eighteen",
+    "Nineteen",
+  ];
+  const b = [
+    "",
+    "",
+    "Twenty",
+    "Thirty",
+    "Forty",
+    "Fifty",
+    "Sixty",
+    "Seventy",
+    "Eighty",
+    "Ninety",
+  ];
   const conv = (n) => {
     if (n < 20) return a[n];
     if (n < 100) return b[Math.floor(n / 10)] + (n % 10 ? " " + a[n % 10] : "");
-    if (n < 1000) return a[Math.floor(n / 100)] + " Hundred" + (n % 100 ? " " + conv(n % 100) : "");
-    if (n < 100000) return conv(Math.floor(n / 1000)) + " Thousand" + (n % 1000 ? " " + conv(n % 1000) : "");
-    if (n < 10000000) return conv(Math.floor(n / 100000)) + " Lakh" + (n % 100000 ? " " + conv(n % 100000) : "");
-    return conv(Math.floor(n / 10000000)) + " Crore" + (n % 10000000 ? " " + conv(n % 10000000) : "");
+    if (n < 1000)
+      return (
+        a[Math.floor(n / 100)] +
+        " Hundred" +
+        (n % 100 ? " " + conv(n % 100) : "")
+      );
+    if (n < 100000)
+      return (
+        conv(Math.floor(n / 1000)) +
+        " Thousand" +
+        (n % 1000 ? " " + conv(n % 1000) : "")
+      );
+    if (n < 10000000)
+      return (
+        conv(Math.floor(n / 100000)) +
+        " Lakh" +
+        (n % 100000 ? " " + conv(n % 100000) : "")
+      );
+    return (
+      conv(Math.floor(n / 10000000)) +
+      " Crore" +
+      (n % 10000000 ? " " + conv(n % 10000000) : "")
+    );
   };
   return conv(num);
 };
@@ -56,14 +119,14 @@ const validateQty = (depthStr, qtyVal) => {
 
 /* ─── default rows ─── */
 const DEFAULT_ROWS = [
-  { description: "Drilling Charges", depth: "001–300",   qty: "", rate: "" },
-  { description: "Drilling Charges", depth: "301–400",   qty: "", rate: "" },
-  { description: "Drilling Charges", depth: "401–500",   qty: "", rate: "" },
-  { description: "Drilling Charges", depth: "501–600",   qty: "", rate: "" },
-  { description: "Drilling Charges", depth: "601–700",   qty: "", rate: "" },
-  { description: "Drilling Charges", depth: "701–800",   qty: "", rate: "" },
-  { description: "Drilling Charges", depth: "801–900",   qty: "", rate: "" },
-  { description: "Drilling Charges", depth: "901–1000",  qty: "", rate: "" },
+  { description: "Drilling Charges", depth: "001–300", qty: "", rate: "" },
+  { description: "Drilling Charges", depth: "301–400", qty: "", rate: "" },
+  { description: "Drilling Charges", depth: "401–500", qty: "", rate: "" },
+  { description: "Drilling Charges", depth: "501–600", qty: "", rate: "" },
+  { description: "Drilling Charges", depth: "601–700", qty: "", rate: "" },
+  { description: "Drilling Charges", depth: "701–800", qty: "", rate: "" },
+  { description: "Drilling Charges", depth: "801–900", qty: "", rate: "" },
+  { description: "Drilling Charges", depth: "901–1000", qty: "", rate: "" },
   { description: "Drilling Charges", depth: "1001–1100", qty: "", rate: "" },
   { description: "Drilling Charges", depth: "1101–1200", qty: "", rate: "" },
   { description: "Drilling Charges", depth: "1201–1300", qty: "", rate: "" },
@@ -72,72 +135,78 @@ const DEFAULT_ROWS = [
   { description: "Drilling Charges", depth: "1501–1600", qty: "", rate: "" },
   { description: "Drilling Charges", depth: "1601–1700", qty: "", rate: "" },
   { description: "Drilling Charges", depth: "1701–1800", qty: "", rate: "" },
-  { description: 'Casing Pipe PVC 7"',  depth: "", qty: "", rate: "" },
+  { description: 'Casing Pipe PVC 7"', depth: "", qty: "", rate: "" },
   { description: 'Casing Pipe PVC 10"', depth: "", qty: "", rate: "" },
-  { description: "Coller",             depth: "", qty: "", rate: "" },
-  { description: "Wielding",           depth: "", qty: "", rate: "" },
-  { description: "Labor & Transport",  depth: "", qty: "", rate: "" },
-  { description: "Water Injection",    depth: "", qty: "", rate: "" },
-  { description: "Filter Casing",      depth: "", qty: "", rate: "" },
+  { description: "Coller", depth: "", qty: "", rate: "" },
+  { description: "Wielding", depth: "", qty: "", rate: "" },
+  { description: "Labor & Transport", depth: "", qty: "", rate: "" },
+  { description: "Water Injection", depth: "", qty: "", rate: "" },
+  { description: "Filter Casing", depth: "", qty: "", rate: "" },
 ];
 
 /* ─── Default company & bank — edit once here, reflects everywhere ─── */
 const DEFAULT_COMPANY = {
-  name:    "MRN BOREWELLS",
-  phone:   "+91 9945033227",
+  name: "MRN BOREWELLS",
+  phone: "+91 9945033227",
   address: "Kariyanapalya, Subramanyapura post, BSK 6th Stage, Banglore-98",
 };
 
 const DEFAULT_BANK = {
-  bank:   "AXIS BANK",
+  bank: "AXIS BANK",
   branch: "Uttarahalli",
   acName: "K Manohar",
-  acNo:   "924010000095361",
-  ifsc:   "UTIB0002043",
+  acNo: "924010000095361",
+  ifsc: "UTIB0002043",
 };
 
 /* ════════════════════════════════════════════════
    COMPONENT
 ════════════════════════════════════════════════ */
 const InvoiceGenerator = () => {
-
   /* ── company (editable, persisted) ── */
-  const [companyName,    setCompanyName]    = useState(DEFAULT_COMPANY.name);
-  const [companyPhone,   setCompanyPhone]   = useState(DEFAULT_COMPANY.phone);
+  const [companyName, setCompanyName] = useState(DEFAULT_COMPANY.name);
+  const [companyPhone, setCompanyPhone] = useState(DEFAULT_COMPANY.phone);
   const [companyAddress, setCompanyAddress] = useState(DEFAULT_COMPANY.address);
 
   /* ── bank (editable, persisted) ── */
-  const [bankName,   setBankName]   = useState(DEFAULT_BANK.bank);
+  const [bankName, setBankName] = useState(DEFAULT_BANK.bank);
   const [bankBranch, setBankBranch] = useState(DEFAULT_BANK.branch);
   const [bankAcName, setBankAcName] = useState(DEFAULT_BANK.acName);
-  const [bankAcNo,   setBankAcNo]   = useState(DEFAULT_BANK.acNo);
-  const [bankIfsc,   setBankIfsc]   = useState(DEFAULT_BANK.ifsc);
+  const [bankAcNo, setBankAcNo] = useState(DEFAULT_BANK.acNo);
+  const [bankIfsc, setBankIfsc] = useState(DEFAULT_BANK.ifsc);
 
   /* ── invoice state ── */
-  const [rows,       setRows]       = useState(JSON.parse(JSON.stringify(DEFAULT_ROWS)));
-  const [applyGST,   setApplyGST]   = useState(false);
-  const [advance,    setAdvance]    = useState("");
-  const [invDate,    setInvDate]    = useState(todayISO());
+  const [rows, setRows] = useState(JSON.parse(JSON.stringify(DEFAULT_ROWS)));
+  const [applyGST, setApplyGST] = useState(false);
+  const [advance, setAdvance] = useState("");
+  const [invDate, setInvDate] = useState(todayISO());
+  const [invNo, setInvNo] = useState("");
   const [savedToast, setSavedToast] = useState(false);
-  const [infoToast,  setInfoToast]  = useState("");
-  const [gstError,   setGstError]   = useState("");
+  const [infoToast, setInfoToast] = useState("");
+  const [gstError, setGstError] = useState("");
 
   /* ── client fields ── */
-  const [to,     setTo]     = useState("");
-  const [addr,   setAddr]   = useState("");
+  const [to, setTo] = useState("");
+  const [addr, setAddr] = useState("");
   const [mobile, setMobile] = useState("");
-  const [gst,    setGst]    = useState("");
-  const [pos,    setPos]    = useState("");
+  const [gst, setGst] = useState("");
+  const [pos, setPos] = useState("");
 
   const saveTimer = useRef(null);
 
   /* ── totals ── */
-  const subtotal     = rows.reduce((s, r) => s + (parseFloat(r.qty) || 0) * (parseFloat(r.rate) || 0), 0);
-  const cgst         = applyGST ? subtotal * 0.09 : 0;
-  const sgst         = applyGST ? subtotal * 0.09 : 0;
+  const subtotal = rows.reduce(
+    (s, r) => s + (parseFloat(r.qty) || 0) * (parseFloat(r.rate) || 0),
+    0,
+  );
+  const cgst = applyGST ? subtotal * 0.09 : 0;
+  const sgst = applyGST ? subtotal * 0.09 : 0;
   const totalWithGST = subtotal + cgst + sgst;
-  const advanceAmt   = Math.min(Math.max(0, parseFloat(advance) || 0), totalWithGST);
-  const payable      = Math.max(0, totalWithGST - advanceAmt);
+  const advanceAmt = Math.min(
+    Math.max(0, parseFloat(advance) || 0),
+    totalWithGST,
+  );
+  const payable = Math.max(0, totalWithGST - advanceAmt);
 
   /* ── autosave ── */
   useEffect(() => {
@@ -146,13 +215,30 @@ const InvoiceGenerator = () => {
       setSavedToast(true);
       setTimeout(() => setSavedToast(false), 1400);
     }, 700);
-  }, [rows, applyGST, advance, to, addr, mobile, gst, pos, invDate,
-      companyName, companyPhone, companyAddress,
-      bankName, bankBranch, bankAcName, bankAcNo, bankIfsc]);
+  }, [
+    rows,
+    applyGST,
+    advance,
+    to,
+    addr,
+    mobile,
+    gst,
+    pos,
+    invDate,
+    invNo,
+    companyName,
+    companyPhone,
+    companyAddress,
+    bankName,
+    bankBranch,
+    bankAcName,
+    bankAcNo,
+    bankIfsc,
+  ]);
 
   /* ── row handlers ── */
   const updateRow = (i, field, val) =>
-    setRows(prev => {
+    setRows((prev) => {
       const n = [...prev];
       n[i] = { ...n[i], [field]: val };
       if (field === "depth") {
@@ -162,8 +248,13 @@ const InvoiceGenerator = () => {
       return n;
     });
 
-  const deleteRow = (i) => setRows(prev => prev.filter((_, idx) => idx !== i));
-  const addRow    = ()  => setRows(prev => [...prev, { description: "", depth: "", qty: "", rate: "" }]);
+  const deleteRow = (i) =>
+    setRows((prev) => prev.filter((_, idx) => idx !== i));
+  const addRow = () =>
+    setRows((prev) => [
+      ...prev,
+      { description: "", depth: "", qty: "", rate: "" },
+    ]);
 
   const handleQtyChange = (i, val) => {
     const row = rows[i];
@@ -206,17 +297,17 @@ const InvoiceGenerator = () => {
       return;
     }
     setGstError("");
-    setApplyGST(v => {
+    setApplyGST((v) => {
       const next = !v;
       if (next) showInfoToast("GST 18% applied (CGST 9% + SGST 9%)");
-      else      showInfoToast("GST removed");
+      else showInfoToast("GST removed");
       return next;
     });
   };
 
   /* ── advance capped ── */
   const handleAdvanceChange = (e) => {
-    const raw    = parseFloat(e.target.value) || 0;
+    const raw = parseFloat(e.target.value) || 0;
     const capped = Math.min(Math.max(0, raw), totalWithGST);
     setAdvance(capped === 0 ? "" : String(capped));
   };
@@ -224,8 +315,14 @@ const InvoiceGenerator = () => {
   /* ── reset ── */
   const resetAll = () => {
     setRows(JSON.parse(JSON.stringify(DEFAULT_ROWS)));
-    setApplyGST(false); setAdvance("");
-    setTo(""); setAddr(""); setMobile(""); setGst(""); setPos("");
+    setApplyGST(false);
+    setAdvance("");
+    setTo("");
+    setAddr("");
+    setMobile("");
+    setGst("");
+    setPos("");
+    setInvNo("");
     setInvDate(todayISO());
     setGstError("");
     // company & bank reset to defaults
@@ -243,25 +340,29 @@ const InvoiceGenerator = () => {
      PDF EXPORT — all values from state, nothing hardcoded
   ════════════════════════════════════════════ */
   const exportToPDF = () => {
-    const filledRows = rows.filter(r =>
-      String(r.qty || "").trim() || String(r.rate || "").trim()
+    const filledRows = rows.filter(
+      (r) => String(r.qty || "").trim() || String(r.rate || "").trim(),
     );
 
-    const rowsHTML = filledRows.map(r => {
-      const amt = (parseFloat(r.qty) || 0) * (parseFloat(r.rate) || 0);
-      return `<tr>
+    const rowsHTML = filledRows
+      .map((r) => {
+        const amt = (parseFloat(r.qty) || 0) * (parseFloat(r.rate) || 0);
+        return `<tr>
         <td style="padding:4px 6px 4px 16px;border-bottom:1px solid #e8edf2;font-size:11px;color:#1a202c;">${r.description || ""}</td>
         <td style="padding:4px 10px;border-bottom:1px solid #e8edf2;font-size:11px;color:#4a5568;white-space:nowrap;">${r.depth || ""}</td>
         <td style="padding:4px 10px;border-bottom:1px solid #e8edf2;font-size:11px;text-align:right;font-variant-numeric:tabular-nums;">${r.qty || ""}</td>
         <td style="padding:4px 10px;border-bottom:1px solid #e8edf2;font-size:11px;text-align:right;font-variant-numeric:tabular-nums;">${r.rate ? Number(r.rate).toLocaleString("en-IN") : ""}</td>
         <td style="padding:4px 16px 4px 6px;border-bottom:1px solid #e8edf2;font-size:11px;text-align:right;font-weight:700;color:${amt > 0 ? "#1a56a0" : "#bbb"};font-variant-numeric:tabular-nums;">${amt > 0 ? "&#8377;" + fmt(amt) : "&#8212;"}</td>
       </tr>`;
-    }).join("");
+      })
+      .join("");
 
-    const gstHTML = applyGST ? `
+    const gstHTML = applyGST
+      ? `
       <tr><td style="padding:3px 0;font-size:11px;color:#4a5568;">CGST (9%)</td><td style="padding:3px 0;font-size:11px;text-align:right;font-weight:600;font-variant-numeric:tabular-nums;">&#8377;${fmt(cgst)}</td></tr>
       <tr><td style="padding:3px 0;font-size:11px;color:#4a5568;">SGST (9%)</td><td style="padding:3px 0;font-size:11px;text-align:right;font-weight:600;font-variant-numeric:tabular-nums;">&#8377;${fmt(sgst)}</td></tr>
-      <tr><td style="padding:3px 0;font-size:12px;color:#1a56a0;font-weight:700;">Total with GST</td><td style="padding:3px 0;font-size:12px;text-align:right;font-weight:700;color:#1a56a0;font-variant-numeric:tabular-nums;">&#8377;${fmt(totalWithGST)}</td></tr>` : "";
+      <tr><td style="padding:3px 0;font-size:12px;color:#1a56a0;font-weight:700;">Total with GST</td><td style="padding:3px 0;font-size:12px;text-align:right;font-weight:700;color:#1a56a0;font-variant-numeric:tabular-nums;">&#8377;${fmt(totalWithGST)}</td></tr>`
+      : "";
 
     /* ── All values from state — nothing hardcoded ── */
     const html = `<!DOCTYPE html>
@@ -317,15 +418,23 @@ const InvoiceGenerator = () => {
           <div style="font-size:9px;color:#637d96;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Place of Supply</div>
           <div style="font-size:12.5px;color:#1a202c;">${pos || "&#8212;"}</div>
         </td>
+        <td style="width:12%;padding:0 10px 5px;vertical-align:top;text-align:right;">
+          <div style="font-size:9px;color:#637d96;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Invoice No.</div>
+          <div style="font-size:12.5px;font-weight:700;color:#1a56a0;">${invNo || "&#8212;"}</div>
+        </td>
         <td style="width:12%;padding:0 0 5px 10px;vertical-align:top;text-align:right;">
           <div style="font-size:9px;color:#637d96;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:2px;">Date</div>
           <div style="font-size:12.5px;font-weight:600;color:#1a3a5c;">${isoToDisplay(invDate)}</div>
         </td>
       </tr>
-      ${gst ? `<tr><td colspan="5" style="padding:2px 0 0;">
+      ${
+        gst
+          ? `<tr><td colspan="5" style="padding:2px 0 0;">
         <span style="font-size:9px;color:#637d96;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;">Client GST: </span>
         <span style="font-size:11.5px;color:#1a202c;font-weight:600;">${gst}</span>
-      </td></tr>` : ""}
+      </td></tr>`
+          : ""
+      }
     </table>
   </div>
 
@@ -398,7 +507,8 @@ const InvoiceGenerator = () => {
 </html>`;
 
     const iframe = document.createElement("iframe");
-    iframe.style.cssText = "position:fixed;left:-9999px;top:0;width:794px;height:2400px;border:none;visibility:hidden;";
+    iframe.style.cssText =
+      "position:fixed;left:-9999px;top:0;width:794px;height:2400px;border:none;visibility:hidden;";
     document.body.appendChild(iframe);
 
     iframe.contentDocument.open();
@@ -423,30 +533,44 @@ const InvoiceGenerator = () => {
         imageTimeout: 0,
         onclone: (doc) => {
           doc.body.style.webkitFontSmoothing = "antialiased";
-        }
-      }).then(canvas => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf     = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4", compress: true });
-        const pdfW    = pdf.internal.pageSize.getWidth();
-        const pdfH    = pdf.internal.pageSize.getHeight();
-        const pxToMm  = 210 / 794;
-        const imgHmm  = contentH * pxToMm;
+        },
+      })
+        .then((canvas) => {
+          const imgData = canvas.toDataURL("image/png");
+          const pdf = new jsPDF({
+            orientation: "portrait",
+            unit: "mm",
+            format: "a4",
+            compress: true,
+          });
+          const pdfW = pdf.internal.pageSize.getWidth();
+          const pdfH = pdf.internal.pageSize.getHeight();
+          const pxToMm = 210 / 794;
+          const imgHmm = contentH * pxToMm;
 
-        if (imgHmm <= pdfH) {
-          pdf.addImage(imgData, "PNG", 0, 0, pdfW, imgHmm);
-        } else {
-          const scale   = pdfH / imgHmm;
-          const scaledW = pdfW * scale;
-          pdf.addImage(imgData, "PNG", (pdfW - scaledW) / 2, 0, scaledW, pdfH);
-        }
+          if (imgHmm <= pdfH) {
+            pdf.addImage(imgData, "PNG", 0, 0, pdfW, imgHmm);
+          } else {
+            const scale = pdfH / imgHmm;
+            const scaledW = pdfW * scale;
+            pdf.addImage(
+              imgData,
+              "PNG",
+              (pdfW - scaledW) / 2,
+              0,
+              scaledW,
+              pdfH,
+            );
+          }
 
-        const name = to ? to.trim().replace(/\s+/g, "_") : "invoice";
-        pdf.save(`${name}_${isoToDisplay(invDate).replace(/\s/g, "-")}.pdf`);
-        document.body.removeChild(iframe);
-      }).catch(err => {
-        console.error("PDF error:", err);
-        document.body.removeChild(iframe);
-      });
+          const name = to ? to.trim().replace(/\s+/g, "_") : "invoice";
+          pdf.save(`${name}_${isoToDisplay(invDate).replace(/\s/g, "-")}.pdf`);
+          document.body.removeChild(iframe);
+        })
+        .catch((err) => {
+          console.error("PDF error:", err);
+          document.body.removeChild(iframe);
+        });
     };
 
     if (iframeWin.document.fonts && iframeWin.document.fonts.ready) {
@@ -460,10 +584,11 @@ const InvoiceGenerator = () => {
   return (
     <div className="inv-page">
       {savedToast && <div className="inv-toast">✓ Saved</div>}
-      {infoToast  && <div className="inv-toast inv-toast--info">{infoToast}</div>}
+      {infoToast && (
+        <div className="inv-toast inv-toast--info">{infoToast}</div>
+      )}
 
       <div className="inv-wrap">
-
         {/* ── HEADER — editable via pencil toggle ── */}
         <header className="inv-header">
           <h1 className="inv-company">{companyName}</h1>
@@ -477,20 +602,59 @@ const InvoiceGenerator = () => {
           <h2 className="inv-section-title">Client Details</h2>
           <div className="inv-fields">
             <div className="inv-field">
+              <label className="inv-label">Invoice No.</label>
+              <input
+                className="inv-input"
+                value={invNo}
+                onChange={(e) => setInvNo(e.target.value)}
+                placeholder="e.g. INV-001"
+              />
+            </div>
+            <div className="inv-field">
+              <label className="inv-label">Date</label>
+              <input
+                className="inv-input inv-date-input"
+                type="date"
+                value={invDate}
+                onChange={(e) => setInvDate(e.target.value || todayISO())}
+              />
+            </div>
+            <div className="inv-field">
               <label className="inv-label">Client Name</label>
-              <input className="inv-input" value={to} onChange={e => setTo(e.target.value)} placeholder="Full name" />
+              <input
+                className="inv-input"
+                value={to}
+                onChange={(e) => setTo(e.target.value)}
+                placeholder="Full name"
+              />
             </div>
             <div className="inv-field">
               <label className="inv-label">Mobile No.</label>
-              <input className="inv-input" value={mobile} onChange={e => setMobile(e.target.value)} placeholder="+91 XXXXX XXXXX" type="tel" />
+              <input
+                className="inv-input"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+                placeholder="+91 XXXXX XXXXX"
+                type="tel"
+              />
             </div>
             <div className="inv-field">
               <label className="inv-label">Address</label>
-              <input className="inv-input" value={addr} onChange={e => setAddr(e.target.value)} placeholder="Client address" />
+              <input
+                className="inv-input"
+                value={addr}
+                onChange={(e) => setAddr(e.target.value)}
+                placeholder="Client address"
+              />
             </div>
             <div className="inv-field">
               <label className="inv-label">Place of Supply</label>
-              <input className="inv-input" value={pos} onChange={e => setPos(e.target.value)} placeholder="City / District" />
+              <input
+                className="inv-input"
+                value={pos}
+                onChange={(e) => setPos(e.target.value)}
+                placeholder="City / District"
+              />
             </div>
             <div className="inv-field">
               <label className="inv-label">
@@ -506,15 +670,6 @@ const InvoiceGenerator = () => {
               />
               {gstError && <span className="inv-field-error">{gstError}</span>}
             </div>
-            <div className="inv-field">
-              <label className="inv-label">Date</label>
-              <input
-                className="inv-input inv-date-input"
-                type="date"
-                value={invDate}
-                onChange={e => setInvDate(e.target.value || todayISO())}
-              />
-            </div>
           </div>
         </section>
 
@@ -522,7 +677,9 @@ const InvoiceGenerator = () => {
         <section className="inv-section inv-section--table">
           <h2 className="inv-section-title">
             Items
-            <button className="inv-add-btn no-print" onClick={addRow}>+ Add Row</button>
+            <button className="inv-add-btn no-print" onClick={addRow}>
+              + Add Row
+            </button>
           </h2>
 
           {/* Desktop table */}
@@ -540,25 +697,62 @@ const InvoiceGenerator = () => {
               </thead>
               <tbody>
                 {rows.map((row, i) => {
-                  const amount = (parseFloat(row.qty) || 0) * (parseFloat(row.rate) || 0);
+                  const amount =
+                    (parseFloat(row.qty) || 0) * (parseFloat(row.rate) || 0);
                   const { error: qtyErr } = validateQty(row.depth, row.qty);
                   return (
                     <tr key={i}>
-                      <td><input className="inv-table-input inv-table-input--desc" value={row.description} onChange={e => updateRow(i, "description", e.target.value)} /></td>
-                      <td><input className="inv-table-input inv-table-input--depth" value={row.depth} onChange={e => updateRow(i, "depth", e.target.value)} placeholder="—" /></td>
+                      <td>
+                        <input
+                          className="inv-table-input inv-table-input--desc"
+                          value={row.description}
+                          onChange={(e) =>
+                            updateRow(i, "description", e.target.value)
+                          }
+                        />
+                      </td>
+                      <td>
+                        <input
+                          className="inv-table-input inv-table-input--depth"
+                          value={row.depth}
+                          onChange={(e) =>
+                            updateRow(i, "depth", e.target.value)
+                          }
+                          placeholder="—"
+                        />
+                      </td>
                       <td>
                         <input
                           className={`inv-table-input inv-table-input--num ${qtyErr ? "inv-table-input--err" : ""}`}
-                          type="number" inputMode="decimal"
+                          type="number"
+                          inputMode="decimal"
                           value={row.qty}
-                          onChange={e => handleQtyChange(i, e.target.value)}
+                          onChange={(e) => handleQtyChange(i, e.target.value)}
                           placeholder="0"
                           title={qtyErr || ""}
                         />
                       </td>
-                      <td><input className="inv-table-input inv-table-input--num" type="number" inputMode="decimal" value={row.rate} onChange={e => updateRow(i, "rate", e.target.value)} placeholder="0" /></td>
-                      <td className="inv-table-amount">{amount > 0 ? `₹${fmt(amount)}` : "—"}</td>
-                      <td className="no-print"><button className="inv-del-btn" onClick={() => deleteRow(i)}>✕</button></td>
+                      <td>
+                        <input
+                          className="inv-table-input inv-table-input--num"
+                          type="number"
+                          inputMode="decimal"
+                          value={row.rate}
+                          onChange={(e) => updateRow(i, "rate", e.target.value)}
+                          placeholder="0"
+                        />
+                      </td>
+                      <td className="inv-table-amount">
+                        {amount > 0 ? `₹${fmt(amount)}` : "—"}
+                      </td>
+                      <td className="no-print">
+                        <button
+                          className="inv-del-btn"
+                          onClick={() => deleteRow(i)}
+                        >
+                          ✕
+                        </button>
+                      </td>
                     </tr>
                   );
                 })}
@@ -569,24 +763,59 @@ const InvoiceGenerator = () => {
           {/* Mobile compact rows */}
           <div className="inv-mobile-rows">
             <div className="inv-mobile-header-row">
-              <span style={{flex:"2 1 0"}}>Description</span>
-              <span style={{flex:"1.2 1 0"}}>Depth</span>
-              <span style={{flex:"0.7 1 0",textAlign:"right"}}>Qty</span>
-              <span style={{flex:"0.9 1 0",textAlign:"right"}}>Rate</span>
-              <span style={{flex:"1 1 0",textAlign:"right"}}>Amt</span>
-              <span style={{width:"22px"}}></span>
+              <span style={{ flex: "2 1 0" }}>Description</span>
+              <span style={{ flex: "1.2 1 0" }}>Depth</span>
+              <span style={{ flex: "0.7 1 0", textAlign: "right" }}>Qty</span>
+              <span style={{ flex: "0.9 1 0", textAlign: "right" }}>Rate</span>
+              <span style={{ flex: "1 1 0", textAlign: "right" }}>Amt</span>
+              <span style={{ width: "22px" }}></span>
             </div>
             {rows.map((row, i) => {
-              const amount = (parseFloat(row.qty) || 0) * (parseFloat(row.rate) || 0);
+              const amount =
+                (parseFloat(row.qty) || 0) * (parseFloat(row.rate) || 0);
               const { error: qtyErr } = validateQty(row.depth, row.qty);
               return (
                 <div key={i} className="inv-mobile-row-inline">
-                  <input className="inv-mri-input inv-mri-desc" value={row.description} onChange={e => updateRow(i, "description", e.target.value)} placeholder="Description" />
-                  <input className="inv-mri-input inv-mri-depth" value={row.depth} onChange={e => updateRow(i, "depth", e.target.value)} placeholder="depth" />
-                  <input className={`inv-mri-input inv-mri-num ${qtyErr ? "inv-mri-err" : ""}`} type="number" inputMode="decimal" value={row.qty} onChange={e => handleQtyChange(i, e.target.value)} placeholder="0" title={qtyErr || ""} />
-                  <input className="inv-mri-input inv-mri-num" type="number" inputMode="decimal" value={row.rate} onChange={e => updateRow(i, "rate", e.target.value)} placeholder="0" />
-                  <span className="inv-mri-amt">{amount > 0 ? `₹${fmt(amount)}` : "—"}</span>
-                  <button className="inv-del-btn no-print" onClick={() => deleteRow(i)}>✕</button>
+                  <input
+                    className="inv-mri-input inv-mri-desc"
+                    value={row.description}
+                    onChange={(e) =>
+                      updateRow(i, "description", e.target.value)
+                    }
+                    placeholder="Description"
+                  />
+                  <input
+                    className="inv-mri-input inv-mri-depth"
+                    value={row.depth}
+                    onChange={(e) => updateRow(i, "depth", e.target.value)}
+                    placeholder="depth"
+                  />
+                  <input
+                    className={`inv-mri-input inv-mri-num ${qtyErr ? "inv-mri-err" : ""}`}
+                    type="number"
+                    inputMode="decimal"
+                    value={row.qty}
+                    onChange={(e) => handleQtyChange(i, e.target.value)}
+                    placeholder="0"
+                    title={qtyErr || ""}
+                  />
+                  <input
+                    className="inv-mri-input inv-mri-num"
+                    type="number"
+                    inputMode="decimal"
+                    value={row.rate}
+                    onChange={(e) => updateRow(i, "rate", e.target.value)}
+                    placeholder="0"
+                  />
+                  <span className="inv-mri-amt">
+                    {amount > 0 ? `₹${fmt(amount)}` : "—"}
+                  </span>
+                  <button
+                    className="inv-del-btn no-print"
+                    onClick={() => deleteRow(i)}
+                  >
+                    ✕
+                  </button>
                 </div>
               );
             })}
@@ -595,14 +824,28 @@ const InvoiceGenerator = () => {
 
         {/* SUMMARY + BANK */}
         <section className="inv-bottom">
-
           <div className="inv-bank">
             <h3 className="inv-bank-title">Bank Details</h3>
-            <div className="inv-bank-row"><span>Bank</span><span>{bankName}</span></div>
-            <div className="inv-bank-row"><span>Branch</span><span>{bankBranch}</span></div>
-            <div className="inv-bank-row"><span>A/C Name</span><span>{bankAcName}</span></div>
-            <div className="inv-bank-row"><span>A/C No.</span><span>{bankAcNo}</span></div>
-            <div className="inv-bank-row"><span>IFSC</span><span>{bankIfsc}</span></div>
+            <div className="inv-bank-row">
+              <span>Bank</span>
+              <span>{bankName}</span>
+            </div>
+            <div className="inv-bank-row">
+              <span>Branch</span>
+              <span>{bankBranch}</span>
+            </div>
+            <div className="inv-bank-row">
+              <span>A/C Name</span>
+              <span>{bankAcName}</span>
+            </div>
+            <div className="inv-bank-row">
+              <span>A/C No.</span>
+              <span>{bankAcNo}</span>
+            </div>
+            <div className="inv-bank-row">
+              <span>IFSC</span>
+              <span>{bankIfsc}</span>
+            </div>
             <div className="inv-signature">
               <span>Authorised Signature</span>
               <div className="inv-signature-line"></div>
@@ -611,43 +854,73 @@ const InvoiceGenerator = () => {
 
           {/* Summary */}
           <div className="inv-summary">
-            <div className="inv-sum-row"><span>Subtotal</span><span>₹{fmt(subtotal)}</span></div>
+            <div className="inv-sum-row">
+              <span>Subtotal</span>
+              <span>₹{fmt(subtotal)}</span>
+            </div>
             {applyGST && (
               <>
                 <div className="inv-sum-divider" />
-                <div className="inv-sum-row"><span>CGST (9%)</span><span>₹{fmt(cgst)}</span></div>
-                <div className="inv-sum-row"><span>SGST (9%)</span><span>₹{fmt(sgst)}</span></div>
-                <div className="inv-sum-row inv-sum-row--gst-total"><span>Total with GST</span><span>₹{fmt(totalWithGST)}</span></div>
+                <div className="inv-sum-row">
+                  <span>CGST (9%)</span>
+                  <span>₹{fmt(cgst)}</span>
+                </div>
+                <div className="inv-sum-row">
+                  <span>SGST (9%)</span>
+                  <span>₹{fmt(sgst)}</span>
+                </div>
+                <div className="inv-sum-row inv-sum-row--gst-total">
+                  <span>Total with GST</span>
+                  <span>₹{fmt(totalWithGST)}</span>
+                </div>
               </>
             )}
             <div className="inv-sum-divider" />
             <div className="inv-sum-row inv-sum-row--advance">
               <label className="inv-label">Advance Paid (₹)</label>
-              <input className="inv-input inv-input--num inv-advance-input" type="number" inputMode="decimal" value={advance} onChange={handleAdvanceChange} placeholder="0" min="0" />
+              <input
+                className="inv-input inv-input--num inv-advance-input"
+                type="number"
+                inputMode="decimal"
+                value={advance}
+                onChange={handleAdvanceChange}
+                placeholder="0"
+                min="0"
+              />
             </div>
             <div className="inv-sum-divider" />
             <div className="inv-sum-total">
               <span>Amount Payable</span>
               <span>₹{fmt(payable)}</span>
             </div>
-            <div className="inv-sum-words">{numberToWords(Math.round(payable))} Only</div>
+            <div className="inv-sum-words">
+              {numberToWords(Math.round(payable))} Only
+            </div>
           </div>
         </section>
 
         {/* NOTE */}
         <div className="inv-note">
-          Note: Final amount may vary based on drilling depth. Minimum 50% advance required before drilling begins.
+          Note: Final amount may vary based on drilling depth. Minimum 50%
+          advance required before drilling begins.
         </div>
 
         {/* ACTIONS */}
         <div className="inv-actions no-print">
-          <button className="inv-btn inv-btn--muted" onClick={resetAll}>Reset All</button>
-          <button className={`inv-btn ${applyGST ? "inv-btn--gst-on" : "inv-btn--gst-off"}`} onClick={handleGstToggle} title={!gst ? "Fill Client GST first" : ""}>
+          <button className="inv-btn inv-btn--muted" onClick={resetAll}>
+            Reset All
+          </button>
+          <button
+            className={`inv-btn ${applyGST ? "inv-btn--gst-on" : "inv-btn--gst-off"}`}
+            onClick={handleGstToggle}
+            title={!gst ? "Fill Client GST first" : ""}
+          >
             {applyGST ? "✓ GST Applied" : "Apply GST"}
           </button>
-          <button className="inv-btn inv-btn--export" onClick={exportToPDF}>Export PDF</button>
+          <button className="inv-btn inv-btn--export" onClick={exportToPDF}>
+            Export PDF
+          </button>
         </div>
-
       </div>
     </div>
   );
